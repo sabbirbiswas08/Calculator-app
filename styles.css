@@ -11,6 +11,16 @@
   --key: rgba(255, 255, 255, 0.08);
   --key-hover: rgba(255, 255, 255, 0.16);
   --shadow: 0 22px 60px rgba(0, 0, 0, 0.4);
+  --bg: #0b1020;
+  --bg-card: rgba(255, 255, 255, 0.06);
+  --bg-card-strong: rgba(255, 255, 255, 0.12);
+  --text: #eaf2ff;
+  --muted: #a8b7d8;
+  --primary: #5f8cff;
+  --primary-strong: #3f73ff;
+  --danger: #ff6b8b;
+  --shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+  --radius: 18px;
 }
 
 * {
@@ -59,6 +69,21 @@ body {
   display: grid;
   grid-template-columns: minmax(320px, 460px) minmax(320px, 1fr);
   gap: 24px;
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top right, #253264 0%, #0b1020 45%, #06080f 100%);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.app-shell {
+  width: min(1050px, 100%);
+  display: grid;
+  grid-template-columns: minmax(290px, 440px) minmax(290px, 1fr);
+  gap: 22px;
 }
 
 .calculator-card,
@@ -112,6 +137,33 @@ h2 {
   border: 1px solid rgba(255, 255, 255, 0.08);
   min-height: 112px;
   padding: 14px 16px;
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.card-header h1,
+.history-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.card-header p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.display-wrap {
+  margin-top: 16px;
+  border-radius: 14px;
+  background: rgba(4, 8, 20, 0.6);
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 96px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -132,12 +184,23 @@ h2 {
   font-size: clamp(1.8rem, 4.2vw, 2.5rem);
   font-weight: 800;
   overflow-wrap: anywhere;
+  font-size: 1rem;
+  word-wrap: break-word;
+}
+
+.result {
+  margin: 6px 0 0;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: right;
+  word-wrap: break-word;
 }
 
 .keypad {
   margin-top: 16px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -151,11 +214,21 @@ h2 {
   min-height: 52px;
   cursor: pointer;
   transition: 0.16s ease;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.09);
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.2s ease;
 }
 
 .btn:hover {
   transform: translateY(-1px);
   background: var(--key-hover);
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .btn:active {
@@ -173,6 +246,15 @@ h2 {
 .btn-equal {
   background: linear-gradient(145deg, var(--primary), var(--primary-dark));
   border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(95, 140, 255, 0.25);
+}
+
+.btn-equal {
+  background: linear-gradient(140deg, var(--primary), var(--primary-strong));
+}
+
+.btn-muted {
+  background: rgba(255, 107, 139, 0.22);
 }
 
 .btn-wide {
@@ -211,6 +293,45 @@ h2 {
   color: var(--muted);
   font-size: 0.9rem;
   overflow-wrap: anywhere;
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-small {
+  padding: 8px 12px;
+  font-size: 0.86rem;
+}
+
+.status-message {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.history-list {
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: 460px;
+  overflow: auto;
+  display: grid;
+  gap: 10px;
+}
+
+.history-item {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 12, 24, 0.6);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.history-item .expr {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.9rem;
 }
 
 .history-item .res {
@@ -226,6 +347,17 @@ h2 {
 }
 
 @media (max-width: 950px) {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.history-item .time {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 900px) {
   .app-shell {
     grid-template-columns: 1fr;
   }
